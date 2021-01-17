@@ -1,0 +1,16 @@
+#zcontainer{
+   width:400px;
+   height:200px;
+   overflow-y: auto;
+   padding:5px;
+}
+#zcontainer .oneuser{
+   cursor: pointer;
+   padding:3px;
+   border-bottom:1px solid blueviolet;
+}
+
+#zcontainer .oneuser:hover{
+   background-color:gray;
+   color:white;
+}
