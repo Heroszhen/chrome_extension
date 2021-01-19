@@ -21,7 +21,7 @@ chrome.extension.onMessage.addListener(
             setEmail(request.data);
         }else if(request.action == "taketoken"){
             chrome.storage.sync.get('token', function(result) {
-                console.log('Value currently is ' + result.key);
+                console.log('Value currently is ' + result.token);
                 sendResponse(result.token);
             });
         }else if(request.action == "settoken"){
@@ -31,7 +31,6 @@ chrome.extension.onMessage.addListener(
                     sendResponse(result.token);
                 });
             });
-            sendResponse(request.data);
             //sendResponse(request.data); 
         }
     }

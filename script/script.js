@@ -32,9 +32,35 @@ $( document ).ready(function() {
 
     $("#part1").css("display","none");
 
+    chrome.storage.sync.get('token', function(result) {
+        let token = result.token;console.log(token)
+        if(token == undefined || token == ""){
+            //window.confirm(response);
+            $("#part1").css("display","block");
+        }else{
+            $.ajax({
+                url: 'https://randomuser.me/api/?results=10',
+                dataType: 'json',
+                success: function(data) {
+                    //console.log(data);
+                    $("#zcontainer").text("");
+                    let results = data["results"];
+                    results.forEach(elm =>{
+                        let div = "<div class='oneuser'>"+elm['email']+";"+elm['phone']+"</div>";
+                        $("#zcontainer").append(div);
+                    });
+                }
+            });
+        }
+    });
+
+    
+/*
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         // envoyer les datas récupérés à background2.js
-        chrome.tabs.sendMessage(tabs[0].id, { action: "taketoken", data: "ddd" }, function (response) {window.confirm(response);
+        chrome.tabs.sendMessage(tabs[0].id, { action: "taketoken", data: "ddd" }, function (response) {
+
+            
             if(response == undefined || response == ""){
                 //window.confirm(response);
                 $("#part1").css("display","block");
@@ -54,7 +80,7 @@ $( document ).ready(function() {
                 });
             }
         });
-    });
+    });*/
 });
 
 /*
@@ -92,7 +118,7 @@ $("#submit").click(function(){
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         // envoyer les datas récupérés à background2.js
         chrome.tabs.sendMessage(tabs[0].id, { action: "settoken", data: "phptoken" }, function (response) {
-            window.confirm(response);
+            
             $("#part1").css("display","none");
             $.ajax({
                 url: 'https://randomuser.me/api/?results=10',
