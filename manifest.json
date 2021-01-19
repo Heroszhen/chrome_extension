@@ -7,7 +7,7 @@
         "scripts":["script/background.js"],
         "persistent":true
     },
-    "permissions":["webNavigation","tabs", "<all_urls>"],
+    "permissions":["webNavigation","tabs", "<all_urls>","storage"],
     "browser_action":{
         "default_icon":"image/icon.png",
         "default_popup":"index.html"

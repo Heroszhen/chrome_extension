@@ -1,7 +1,7 @@
 var email = document.getElementById("login_field") || document.getElementById("email");
-email.value = "zhen";
+if(email)email.value = "";
 var password = document.getElementById("password") || document.getElementById("pass");
-password.value = "zhen";
+if(password)password.value = "";
 
 function setEmail(emailv){
     let tab = emailv.split(";");
@@ -16,17 +16,23 @@ email.addEventListener('mousemove', () => {
 
 chrome.extension.onMessage.addListener(
     function (request, sender, sendResponse) {
-        if (request.action === "paste") {/*
-            // 收到paste消息和之前抓取的值
-            var ctrl = $("#input");
-            if (ctrl.length > 0) {
-            // 将值放入目标网页的id为input的输入框中
-                ctrl.val(request.data);
-                
-            } else {
-                alert("No data");
-            }*/
+        if (request.action === "paste") {
+            
             setEmail(request.data);
+        }else if(request.action == "taketoken"){
+            chrome.storage.sync.get('token', function(result) {
+                console.log('Value currently is ' + result.key);
+                sendResponse(result.token);
+            });
+        }else if(request.action == "settoken"){
+            chrome.storage.sync.set({"token": request.data},function(){
+                chrome.storage.sync.get('token', function(result) {
+                    console.log('Value currently is ' + result.token);
+                    sendResponse(result.token);
+                });
+            });
+            sendResponse(request.data);
+            //sendResponse(request.data); 
         }
     }
 );

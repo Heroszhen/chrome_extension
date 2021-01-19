@@ -5,3 +5,5 @@ https://blog.csdn.net/m0_37729058/article/details/79485302
 tests : 
 https://github.com/login
 https://fr-fr.facebook.com/
+
+https://stackoverflow.com/questions/3937000/chrome-extension-accessing-localstorage-in-content-script
